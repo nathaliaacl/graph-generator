@@ -5,11 +5,10 @@ import VertexDegree from './VertexDegree';
 import CheckAdjacency from './CheckAdjcency';
 import OrderSize from './OrderSize';
 import ShortestPath from './ShortestPath';
-
+import DownloadGraphImage from './DownloadGraphImage';
+import ClearGraphButton from './ClearGraphButton';
+import RemoveLastVertexButton from './RemoveLastVertexButton';
 import { IoIosAdd } from "react-icons/io";
-import { IoCloseOutline } from "react-icons/io5";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaDownload } from "react-icons/fa6";
 
 function GraphComponent() {
   const [elements, setElements] = useState([]);
@@ -199,32 +198,21 @@ const removeLastVertex = () => {
     console.error('Error removing last vertex:', error);
   });
 };
-
-const handleDownloadGraphImage = () => {
-  if (cyRef.current) {
-    const imageUrl = cyRef.current.png({ full: true, scale: 1.5 });
-    const downloadLink = document.createElement('a');
-    downloadLink.href = imageUrl;
-    downloadLink.download = "graph-image.png";
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-  } else {
-    console.error('Cytoscape não está inicializado.');
-  }
-};
  
   return (
     <div >
       <div className='flex gap-4 mb-2 items-center justify-center'>
-        <label className="flex items-center justify-center">
-        <input
-          type="checkbox"
-          checked={isDirected}
-          onChange={(e) => setIsDirected(e.target.checked)}
-          className="form-checkbox h-5 w-5 text-blue-600"
-        /><span className="ml-2 mr-2 text-gray-700">Directed Graph</span>
-      </label> 
+        <div className='border border-gray-300 rounded p-1'>
+          <label className="flex items-center justify-center ml-1">
+          <input
+            type="checkbox"
+            checked={isDirected}
+            onChange={(e) => setIsDirected(e.target.checked)}
+            className="form-checkbox h-5 w-5 text-blue-600"
+          /><span className="ml-2 mr-2 text-gray-400">Directed Graph</span>
+          </label> 
+        </div>
+        
       <input
         type="text"
         value={vertexLabel}
@@ -268,19 +256,12 @@ const handleDownloadGraphImage = () => {
       </div>
         
       <div className='flex items-center justify-center'>
-        <button onClick={removeLastVertex} className="bg-red-500 hover:bg-red-700 text-white font-bold text-base py-1 px-2 rounded my-2 mr-2 flex items-center gap-1">
-        <IoCloseOutline/>
-        Remove Last Vertex
-      </button>
-
-      <button onClick={clearGraph} className="bg-red-500 hover:bg-red-700 text-white font-bold text-base py-1 px-2 rounded my-2 mr-2 flex items-center gap-1">
-        <RiDeleteBin6Line />
-        Clean All
-      </button>
+        <RemoveLastVertexButton removeLastVertex={removeLastVertex} />
+        <ClearGraphButton clearGraph={clearGraph} />
       </div>
       
       <div className='flex flex-col items-center justify-center'>
-        <div className="mt-2 mb-4 border-2 border-gray-300 rounded" style={{ width: '1200px', height: '400px' }}>
+        <div className="mt-2 mb-4 border-2 bg-white border-gray-300 rounded" style={{ width: '1200px', height: '400px' }}>
           <CytoscapeComponent elements={elements} style={{ width: '100%', height: '100%' }}  cy={(cy) => { cyRef.current = cy; }}
             stylesheet={[
               {
@@ -320,11 +301,10 @@ const handleDownloadGraphImage = () => {
           />
         </div>
       </div>
-      <div className='flex mb-4'>
-        <button onClick={handleDownloadGraphImage} className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded my-2 mr-2 w-10 h-10 flex items-center justify-center">
-          <FaDownload size={24}/>
-        </button>
+
+      <div className='flex justify-between bg-gray-200 rounded-md mb-2'>
         <OrderSize graphInfo={graphInfo} />
+        <DownloadGraphImage cyRef={cyRef}/>
       </div>
       
         <AdjacencyList/>

@@ -104,7 +104,6 @@ def init_routes(app):
             return jsonify({'error': 'Vertex not found'}), 404
         print(app.graph)
         if isinstance(app.graph, nx.MultiDiGraph): #direcionados
-            print('ENTREI AQUI')
             successors = list(app.graph.successors(vertex_id))
             predecessors = list(app.graph.predecessors(vertex_id))
             return jsonify({
@@ -112,7 +111,6 @@ def init_routes(app):
                 'predecessors': predecessors
             }), 200
         if isinstance(app.graph, nx.MultiGraph): 
-            print('entrei nao direct')
             neighbors = list(app.graph.neighbors(vertex_id))
             return jsonify({'neighbors': neighbors}), 200
         
