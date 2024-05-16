@@ -5,9 +5,10 @@ import VertexDegree from './VertexDegree';
 import CheckAdjacency from './CheckAdjcency';
 import OrderSize from './OrderSize';
 import ShortestPath from './ShortestPath';
-import DownloadGraphImage from './DownloadGraphImage';
-import ClearGraphButton from './ClearGraphButton';
-import RemoveLastVertexButton from './RemoveLastVertexButton';
+import DownloadGraphImage from './button/DownloadGraphImage';
+import ClearGraphButton from './button/ClearGraphButton';
+import RemoveLastVertexButton from './button/RemoveLastVertexButton';
+
 import { IoIosAdd } from "react-icons/io";
 
 function GraphComponent() {
@@ -17,7 +18,6 @@ function GraphComponent() {
   const [targetVertex, setTargetVertex] = useState('');
   const [edgeWeight, setEdgeWeight] = useState('');
   const [isDirected, setIsDirected] = useState(false);
-  
   
   const [graphInfo, setGraphInfo] = useState({
     numberOfNodes: 0,
@@ -201,64 +201,54 @@ const removeLastVertex = () => {
  
   return (
     <div >
-      <div className='flex gap-4 mb-2 items-center justify-center'>
-        <div className='border border-gray-300 rounded p-1'>
-          <label className="flex items-center justify-center ml-1">
-          <input
-            type="checkbox"
-            checked={isDirected}
-            onChange={(e) => setIsDirected(e.target.checked)}
-            className="form-checkbox h-5 w-5 text-blue-600"
-          /><span className="ml-2 mr-2 text-gray-400">Directed Graph</span>
-          </label> 
+      <div className='flex flex-wrap items-center justify-center gap-4 mb-2 mt-4'>
+        <div className='border border-gray-300 rounded p-1 bg-white'>
+            <label className="flex items-center justify-center ml-1">
+                <input
+                    type="checkbox"
+                    checked={isDirected}
+                    onChange={(e) => setIsDirected(e.target.checked)}
+                    className="form-checkbox h-5 w-5 text-blue-600"
+                /><span className="ml-2 mr-2 text-gray-400">Directed Graph</span>
+            </label> 
         </div>
-        
-      <input
+    <input
         type="text"
         value={vertexLabel}
         onChange={(e) => setVertexLabel(e.target.value)}
         placeholder="Vertex Label"
         className="p-1 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150 ease-in-out"
-      />
-      <button onClick={addVertex} className="bg-green-500 hover:bg-green-700 text-white font-bold text-base py-1 px-2 rounded my-2 mr-2 flex items-center gap-1">
-        <IoIosAdd size={20} />
+    />
+    <button onClick={addVertex} className="bg-green-500 hover:bg-green-700 text-white font-bold text-base py-1 px-2 rounded my-2 mr-2 flex items-center gap-1">
+        <IoIosAdd size={20}/>
         Add Vertex
-      </button>
-
-      </div>
-      <div className='flex  items-center justify-center gap-4 mb-2'>
-        <input
+    </button>
+    <input
         type="text"
         value={sourceVertex}
         onChange={(e) => setSourceVertex(e.target.value)}
         placeholder="Source Vertex"
-        className=" flex items-center justify-center p-1 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150 ease-in-out"
-      />
-      <input
+        className="p-1 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150 ease-in-out"
+    />
+    <input
         type="text"
         value={targetVertex}
         onChange={(e) => setTargetVertex(e.target.value)}
         placeholder="Target Vertex"
         className="p-1 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150 ease-in-out"
-      />
-      <input
+    />
+    <input
         type="text"
         value={edgeWeight}
         onChange={(e) => setEdgeWeight(e.target.value)}
         placeholder="Edge Weight"
         className="p-1 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150 ease-in-out"
-      />
-      <button onClick={addEdge} className="bg-green-500 hover:bg-green-700 text-white font-bold text-base py-1 px-2 rounded my-2 mr-2 flex items-center gap-1">
+    />
+    <button onClick={addEdge} className="bg-green-500 hover:bg-green-700 text-white font-bold text-base py-1 px-2 rounded my-2 mr-2 flex items-center gap-1">
         <IoIosAdd size={20}/>
         Add Edge
-      </button>
-
-      </div>
-        
-      <div className='flex items-center justify-center'>
-        <RemoveLastVertexButton removeLastVertex={removeLastVertex} />
-        <ClearGraphButton clearGraph={clearGraph} />
-      </div>
+    </button>
+</div>
       
       <div className='flex flex-col items-center justify-center'>
         <div className="mt-2 mb-4 border-2 bg-white border-gray-300 rounded" style={{ width: '1200px', height: '400px' }}>
@@ -304,15 +294,18 @@ const removeLastVertex = () => {
 
       <div className='flex justify-between bg-gray-200 rounded-md mb-2'>
         <OrderSize graphInfo={graphInfo} />
-        <DownloadGraphImage cyRef={cyRef}/>
+        <div className="flex">
+          <RemoveLastVertexButton removeLastVertex={removeLastVertex} />
+          <ClearGraphButton clearGraph={clearGraph} />
+          <DownloadGraphImage cyRef={cyRef} />
+        </div>
       </div>
       
-        <AdjacencyList/>
         <VertexDegree/>
+        <AdjacencyList/>
         <CheckAdjacency/>
-        <ShortestPath/>
-      
-      
+        <ShortestPath/> 
+
     </div>
   );
 }

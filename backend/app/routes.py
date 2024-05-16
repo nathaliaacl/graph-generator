@@ -75,20 +75,38 @@ def init_routes(app):
             return jsonify({'error': 'One or both vertices not found'}), 400
 
 
+    # @app.route('/remove_last_vertex', methods=['POST'])
+    # def remove_last_vertex():
+    #     if app.graph.nodes:
+    #         last_vertex = sorted(app.graph.nodes())[-1] 
+    #         connected_edges = list(app.graph.edges(last_vertex))  
+    #         num_edges_removed = len(connected_edges)  
+    #         app.graph.remove_node(last_vertex)  
+    #         return jsonify({
+    #             'message': f'Vertex {last_vertex} removed',
+    #             'vertexId': last_vertex,
+    #             'edgesRemoved': num_edges_removed  
+    #         }), 200
+    #     else:
+    #         return jsonify({'error': 'No vertices to remove'}), 400
     @app.route('/remove_last_vertex', methods=['POST'])
     def remove_last_vertex():
         if app.graph.nodes:
-            last_vertex = sorted(app.graph.nodes())[-1] 
-            connected_edges = list(app.graph.edges(last_vertex))  
-            num_edges_removed = len(connected_edges)  
-            app.graph.remove_node(last_vertex)  
+            last_vertex = sorted(app.graph.nodes())[-1]
+            if isinstance(app.graph, nx.MultiDiGraph):
+                connected_edges = list(app.graph.in_edges(last_vertex)) + list(app.graph.out_edges(last_vertex))
+            else:
+                connected_edges = list(app.graph.edges(last_vertex))
+            num_edges_removed = len(connected_edges)
+            app.graph.remove_node(last_vertex)
             return jsonify({
                 'message': f'Vertex {last_vertex} removed',
                 'vertexId': last_vertex,
-                'edgesRemoved': num_edges_removed  
+                'edgesRemoved': num_edges_removed
             }), 200
         else:
             return jsonify({'error': 'No vertices to remove'}), 400
+
       
     @app.route('/graph_metrics', methods=['GET'])
     def graph_metrics():

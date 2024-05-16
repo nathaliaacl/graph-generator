@@ -29,7 +29,7 @@ function VertexDegree() {
     };
 
     return (
-        <div className='mb-2'>
+        <div className='mb-4 flex mt-4'>
             <div className='flex mb-1'>
                 <input
                     type="text"
@@ -44,12 +44,12 @@ function VertexDegree() {
                 </button>
             </div>
             
-            {error && <div className="text-red-500">{error}</div>}
+            {error && <div className="text-red-500 ml-4 flex items-center">{error}</div>}
             {degreeInfo && (
-                <div>
-                    {degreeInfo.degree !== undefined && <p><strong>Degree:</strong> {degreeInfo.degree}</p>}
-                    {degreeInfo.in_degree !== undefined && <p><strong>In-Degree:</strong> {degreeInfo.in_degree}</p>}
-                    {degreeInfo.out_degree !== undefined && <p><strong>Out-Degree:</strong> {degreeInfo.out_degree}</p>}
+                <div className='flex items-center ml-4 gap-6'>
+                    {degreeInfo.degree !== undefined && <p className='text-zinc-300'><strong>Degree:</strong> {degreeInfo.degree}</p>}
+                    {degreeInfo.in_degree !== undefined && <p className='text-zinc-300'><strong>In-Degree:</strong> {degreeInfo.in_degree}</p>}
+                    {degreeInfo.out_degree !== undefined && <p className='text-zinc-300'><strong>Out-Degree:</strong> {degreeInfo.out_degree}</p>}
                 </div>
             )}
         </div>

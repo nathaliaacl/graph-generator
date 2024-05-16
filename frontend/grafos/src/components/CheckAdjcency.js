@@ -28,30 +28,30 @@ function CheckAdjacency() {
     };
 
     return (
-        <div className='mb-2'>
+        <div className='flex mb-4'>
             <div className='flex mb-1'>
                <input
                 type="text"
                 value={vertex1}
                 onChange={(e) => setVertex1(e.target.value)}
                 placeholder="Vertex 1"
-                className="p-1 border w-20 border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150 ease-in-out"
+                className="p-1 border w-auto border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150 ease-in-out"
             />
             <input
                 type="text"
                 value={vertex2}
                 onChange={(e) => setVertex2(e.target.value)}
                 placeholder="Vertex 2"
-                className="p-1 ml-2 border w-20 border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150 ease-in-out"
+                className="p-1 ml-2 border w-auto border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150 ease-in-out"
             />
             <button onClick={checkAdjacency} className="ml-2  bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded flex items-center gap-1">
-                <IoCheckmarkOutline size={20}/>
+                <IoCheckmarkOutline size={25}/>
                 Check Adjacency
             </button> 
             </div>
             
-            <div style={{ color: isAdjacent === null ? 'black' : isAdjacent ? 'green' : 'red' }}>
-                {result}
+            <div className={`ml-4 flex items-center text-md ${isAdjacent === null ? 'text-red-600' : isAdjacent ? 'text-green-500' : 'text-red-600'}`}>
+            {result}
             </div>
         </div>
     );

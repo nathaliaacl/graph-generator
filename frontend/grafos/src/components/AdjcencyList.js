@@ -30,7 +30,7 @@ function AdjcencyList() {
     };
 
     return (
-        <div className='mb-2'>
+        <div className='mb-4 mt-4 flex'>
             <div className='flex mb-1'>
                 <input
                     type="text"
@@ -45,16 +45,16 @@ function AdjcencyList() {
                 </button>
             </div>
             
-            {error && <div className="text-red-500">{error}</div>}
+            {error && <div className="text-red-500 flex items-center ml-4">{error}</div>}
             {adjacencyList && (
-                <div>
+                <div className='flex gap-6 items-center ml-4'>
                     {adjacencyList.successors && adjacencyList.predecessors ? (
                         <>
-                            <div><strong>Successors:</strong> {adjacencyList.successors.join(', ')}</div>
-                            <div><strong>Predecessors:</strong> {adjacencyList.predecessors.join(', ')}</div>
+                            <div className='text-zinc-300'><strong>Successors:</strong> {adjacencyList.successors.join(', ')}</div>
+                            <div className='text-zinc-300'><strong>Predecessors:</strong> {adjacencyList.predecessors.join(', ')}</div>
                         </>
                     ) : (
-                        adjacencyList.neighbors && <div>Neighbors: {adjacencyList.neighbors.join(', ')}</div>
+                        adjacencyList.neighbors && <div className='text-zinc-300'><strong>Neighbors:</strong> {adjacencyList.neighbors.join(', ')}</div>
                     )}
                 </div>
             )}
