@@ -10,6 +10,7 @@ import ClearGraphButton from './button/ClearGraphButton';
 import RemoveLastVertexButton from './button/RemoveLastVertexButton';
 
 import { IoIosAdd } from "react-icons/io";
+import AddBatchComponent from './AddBatchComponent';
 
 function GraphComponent() {
   const [elements, setElements] = useState([]);
@@ -18,6 +19,7 @@ function GraphComponent() {
   const [targetVertex, setTargetVertex] = useState('');
   const [edgeWeight, setEdgeWeight] = useState('');
   const [isDirected, setIsDirected] = useState(false);
+
   
   const [graphInfo, setGraphInfo] = useState({
     numberOfNodes: 0,
@@ -77,22 +79,43 @@ useEffect(() => {
   setGraphType();  
 }, [setGraphType]);
 
-  const fetchGraph = () => {
-    fetch('http://localhost:5000/get_graph')
-      .then(response => response.json())
-      .then(data => {
-        const formattedElements = data.nodes.concat(data.edges.map(edge => ({
+const fetchGraph = () => {
+  fetch('http://localhost:5000/get_graph')
+    .then(response => response.json())
+    .then(data => {
+      const formattedElements = data.nodes.concat(data.edges.map(edge => {
+        // Ajuste aqui: só incluir label se o peso for diferente de zero
+        const label = edge.data.weight !== 0 ? edge.data.weight.toString() : '';
+        return {
           data: { 
             id: `${edge.data.source}-${edge.data.target}`,
             source: edge.data.source, 
             target: edge.data.target,
-            label: edge.data.weight
+            label: label  // Usar label condicionalmente
           }
-        })));
-        setElements(formattedElements);
-      })
-      .catch(error => console.error('Error fetching graph:', error));
-  };
+        };
+      }));
+      setElements(formattedElements);
+    })
+    .catch(error => console.error('Error fetching graph:', error));
+};
+
+  // const fetchGraph = () => {
+  //   fetch('http://localhost:5000/get_graph')
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       const formattedElements = data.nodes.concat(data.edges.map(edge => ({
+  //         data: { 
+  //           id: `${edge.data.source}-${edge.data.target}`,
+  //           source: edge.data.source, 
+  //           target: edge.data.target,
+  //           label: edge.data.weight
+  //         }
+  //       })));
+  //       setElements(formattedElements);
+  //     })
+  //     .catch(error => console.error('Error fetching graph:', error));
+  // };
   
   const updateGraphMetrics = () => {
     fetch('http://localhost:5000/graph_metrics')
@@ -198,6 +221,7 @@ const removeLastVertex = () => {
     console.error('Error removing last vertex:', error);
   });
 };
+
  
   return (
     <div >
@@ -294,10 +318,12 @@ const removeLastVertex = () => {
 
       <div className='flex justify-between bg-gray-200 rounded-md mb-2'>
         <OrderSize graphInfo={graphInfo} />
-        <div className="flex">
+        <div className="flex justify-center items-center">
+          <AddBatchComponent fetchGraph={fetchGraph} updateGraphMetrics={updateGraphMetrics} />
           <RemoveLastVertexButton removeLastVertex={removeLastVertex} />
           <ClearGraphButton clearGraph={clearGraph} />
           <DownloadGraphImage cyRef={cyRef} />
+          
         </div>
       </div>
       

@@ -73,6 +73,7 @@ def init_routes(app):
                     return jsonify({'error': 'Undirected edge already exists'}), 400
         else:
             return jsonify({'error': 'One or both vertices not found'}), 400
+    
 
 
     # @app.route('/remove_last_vertex', methods=['POST'])
@@ -176,3 +177,71 @@ def init_routes(app):
         except KeyError:
             return jsonify({'error': 'One or both vertices not found'}), 404
         
+    # @app.route('/add_batch', methods=['POST'])
+    # def add_batch():
+    #     data = request.get_json()
+    #     batch_string = data.get('batch')
+    #     if not batch_string:
+    #         return jsonify({'error': 'No batch data provided'}), 400
+
+    #     entries = batch_string.split()  # Dividindo a string por espaços
+    #     for entry in entries:
+    #         parts = entry.split(',')
+    #         if len(parts) != 3:
+    #             continue  # Ignora entradas mal formatadas
+
+    #         vertex1, vertex2, weight = parts
+    #         if vertex1 not in app.graph:
+    #             app.graph.add_node(vertex1, label=vertex1)
+    #         if vertex2 not in app.graph:
+    #             app.graph.add_node(vertex2, label=vertex2)
+            
+    #         try:
+    #             weight = float(weight)
+    #             if not app.graph.has_edge(vertex1, vertex2) and not app.graph.has_edge(vertex2, vertex1):
+    #                 app.graph.add_edge(vertex1, vertex2, weight=weight)
+    #         except ValueError:
+    #             continue  # Ignora pesos que não são números
+
+    #     return jsonify({'message': 'Batch data added successfully'}), 200
+    @app.route('/add_batch', methods=['POST'])
+    def add_batch():
+        data = request.get_json()
+        batch_string = data.get('batch')
+        if not batch_string:
+            return jsonify({'error': 'No batch data provided'}), 400
+
+        entries = batch_string.split()  # Dividindo a string por espaços
+        errors = []
+        for entry in entries:
+            parts = entry.split(',')
+            if len(parts) == 1:
+                vertex = parts[0]
+                if vertex not in app.graph:
+                    app.graph.add_node(vertex, label=vertex)
+            elif len(parts) == 2:
+                vertex1, vertex2 = parts
+                if vertex1 not in app.graph:
+                    app.graph.add_node(vertex1, label=vertex1)
+                if vertex2 not in app.graph:
+                    app.graph.add_node(vertex2, label=vertex2)
+            elif len(parts) >= 3:
+                # Processar em lotes de três elementos
+                for i in range(0, len(parts) - 2, 3):
+                    vertex1, vertex2, weight = parts[i:i+3]
+                    if vertex1 not in app.graph:
+                        app.graph.add_node(vertex1, label=vertex1)
+                    if vertex2 not in app.graph:
+                        app.graph.add_node(vertex2, label=vertex2)
+                    try:
+                        weight = float(weight)
+                        if not app.graph.has_edge(vertex1, vertex2) and not app.graph.has_edge(vertex2, vertex1):
+                            app.graph.add_edge(vertex1, vertex2, weight=weight)
+                    except ValueError:
+                        errors.append(f'Invalid weight value for edge from {vertex1} to {vertex2}')
+            else:
+                errors.append(f'Invalid entry format: {entry}')
+
+        if errors:
+            return jsonify({'error': 'Errors occurred while processing batch data', 'details': errors}), 400
+        return jsonify({'message': 'Batch data added successfully'}), 200
