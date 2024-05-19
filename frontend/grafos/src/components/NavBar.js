@@ -7,7 +7,7 @@ const NavBar = () => {
   const [showInfoTooltip, setShowInfoTooltip] = useState(false);
 
   return (
-    <nav className="bg-blue-900 text-white p-4 shadow-lg">
+    <nav className="bg-blue-950 text-white p-4 shadow-lg">
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-3xl font-bold mt-4 mb-2 ml-4">Graph Generator</h1>
         <div className="flex items-center mr-20">

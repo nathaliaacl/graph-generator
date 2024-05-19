@@ -277,6 +277,17 @@ const removeLastVertex = () => {
       <div className='flex flex-col items-center justify-center'>
         <div className="mt-2 mb-4 border-2 bg-white border-gray-300 rounded" style={{ width: '1200px', height: '400px' }}>
           <CytoscapeComponent elements={elements} style={{ width: '100%', height: '100%' }}  cy={(cy) => { cyRef.current = cy; }}
+            layout={{
+              name: 'cose',
+              fit: true,
+              padding: 40,
+              randomize: true,
+              nodeOverlap: 10,
+              componentSpacing: 100,
+              nodeRepulsion: (node) => 4000,
+              edgeElasticity: (edge) => 100,
+              nestingFactor: 5,
+            }}
             stylesheet={[
               {
                 selector: 'node',

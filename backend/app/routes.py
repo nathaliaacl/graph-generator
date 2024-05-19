@@ -26,7 +26,7 @@ def init_routes(app):
     @app.route('/set_graph_type', methods=['POST'])
     def set_graph_type():
         data = request.get_json()
-        print('dsadasasdasds', data.get('type'))
+        # print('dsadasasdasds', data.get('type'))
         # graph_type = data.get('type', 'directed')
         if app.graph and app.graph.number_of_nodes() > 0:
             return jsonify({'error': 'Cannot change graph type with existing nodes'}), 400
@@ -74,22 +74,6 @@ def init_routes(app):
         else:
             return jsonify({'error': 'One or both vertices not found'}), 400
     
-
-
-    # @app.route('/remove_last_vertex', methods=['POST'])
-    # def remove_last_vertex():
-    #     if app.graph.nodes:
-    #         last_vertex = sorted(app.graph.nodes())[-1] 
-    #         connected_edges = list(app.graph.edges(last_vertex))  
-    #         num_edges_removed = len(connected_edges)  
-    #         app.graph.remove_node(last_vertex)  
-    #         return jsonify({
-    #             'message': f'Vertex {last_vertex} removed',
-    #             'vertexId': last_vertex,
-    #             'edgesRemoved': num_edges_removed  
-    #         }), 200
-    #     else:
-    #         return jsonify({'error': 'No vertices to remove'}), 400
     @app.route('/remove_last_vertex', methods=['POST'])
     def remove_last_vertex():
         if app.graph.nodes:
@@ -121,7 +105,7 @@ def init_routes(app):
         vertex_id = data.get('vertex_id')
         if vertex_id not in app.graph:
             return jsonify({'error': 'Vertex not found'}), 404
-        print(app.graph)
+        # print(app.graph)
         if isinstance(app.graph, nx.MultiDiGraph): #direcionados
             successors = list(app.graph.successors(vertex_id))
             predecessors = list(app.graph.predecessors(vertex_id))
@@ -177,33 +161,6 @@ def init_routes(app):
         except KeyError:
             return jsonify({'error': 'One or both vertices not found'}), 404
         
-    # @app.route('/add_batch', methods=['POST'])
-    # def add_batch():
-    #     data = request.get_json()
-    #     batch_string = data.get('batch')
-    #     if not batch_string:
-    #         return jsonify({'error': 'No batch data provided'}), 400
-
-    #     entries = batch_string.split()  # Dividindo a string por espaços
-    #     for entry in entries:
-    #         parts = entry.split(',')
-    #         if len(parts) != 3:
-    #             continue  # Ignora entradas mal formatadas
-
-    #         vertex1, vertex2, weight = parts
-    #         if vertex1 not in app.graph:
-    #             app.graph.add_node(vertex1, label=vertex1)
-    #         if vertex2 not in app.graph:
-    #             app.graph.add_node(vertex2, label=vertex2)
-            
-    #         try:
-    #             weight = float(weight)
-    #             if not app.graph.has_edge(vertex1, vertex2) and not app.graph.has_edge(vertex2, vertex1):
-    #                 app.graph.add_edge(vertex1, vertex2, weight=weight)
-    #         except ValueError:
-    #             continue  # Ignora pesos que não são números
-
-    #     return jsonify({'message': 'Batch data added successfully'}), 200
     @app.route('/add_batch', methods=['POST'])
     def add_batch():
         data = request.get_json()
@@ -245,3 +202,4 @@ def init_routes(app):
         if errors:
             return jsonify({'error': 'Errors occurred while processing batch data', 'details': errors}), 400
         return jsonify({'message': 'Batch data added successfully'}), 200
+    
