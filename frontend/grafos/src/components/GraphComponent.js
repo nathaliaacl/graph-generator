@@ -327,7 +327,7 @@ const removeLastVertex = () => {
         </div>
       </div>
 
-      <div className='flex justify-between bg-gray-200 rounded-md mb-2'>
+      <div className='flex justify-between bg-gray-300 rounded-md mb-2'>
         <OrderSize graphInfo={graphInfo} />
         <div className="flex justify-center items-center">
           <AddBatchComponent fetchGraph={fetchGraph} updateGraphMetrics={updateGraphMetrics} />

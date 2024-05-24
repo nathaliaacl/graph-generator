@@ -50,11 +50,11 @@ function AdjcencyList() {
                 <div className='flex gap-6 items-center ml-4'>
                     {adjacencyList.successors && adjacencyList.predecessors ? (
                         <>
-                            <div className='text-zinc-300'><strong>Successors:</strong> {adjacencyList.successors.join(', ')}</div>
-                            <div className='text-zinc-300'><strong>Predecessors:</strong> {adjacencyList.predecessors.join(', ')}</div>
+                            <div className='text-black'><strong>Successors:</strong> {adjacencyList.successors.join(', ')}</div>
+                            <div className='text-black'><strong>Predecessors:</strong> {adjacencyList.predecessors.join(', ')}</div>
                         </>
                     ) : (
-                        adjacencyList.neighbors && <div className='text-zinc-300'><strong>Neighbors:</strong> {adjacencyList.neighbors.join(', ')}</div>
+                        adjacencyList.neighbors && <div className='text-black'><strong>Neighbors:</strong> {adjacencyList.neighbors.join(', ')}</div>
                     )}
                 </div>
             )}

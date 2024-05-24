@@ -47,9 +47,9 @@ function VertexDegree() {
             {error && <div className="text-red-500 ml-4 flex items-center">{error}</div>}
             {degreeInfo && (
                 <div className='flex items-center ml-4 gap-6'>
-                    {degreeInfo.degree !== undefined && <p className='text-zinc-300'><strong>Degree:</strong> {degreeInfo.degree}</p>}
-                    {degreeInfo.in_degree !== undefined && <p className='text-zinc-300'><strong>In-Degree:</strong> {degreeInfo.in_degree}</p>}
-                    {degreeInfo.out_degree !== undefined && <p className='text-zinc-300'><strong>Out-Degree:</strong> {degreeInfo.out_degree}</p>}
+                    {degreeInfo.degree !== undefined && <p className='text-black'><strong>Degree:</strong> {degreeInfo.degree}</p>}
+                    {degreeInfo.in_degree !== undefined && <p className='text-black'><strong>In-Degree:</strong> {degreeInfo.in_degree}</p>}
+                    {degreeInfo.out_degree !== undefined && <p className='text-black'><strong>Out-Degree:</strong> {degreeInfo.out_degree}</p>}
                 </div>
             )}
         </div>

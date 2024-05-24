@@ -47,8 +47,8 @@ function ShortestPath() {
       
       {result && (
         <div className='flex ml-4 justify-center items-center gap-6'>
-          <div className='text-zinc-300'><strong>Path: </strong>{result.path.join(' -> ')}</div>
-          <div className='text-zinc-300'><strong>Cost: </strong>{result.cost}</div>
+          <div className='text-black'><strong>Path: </strong>{result.path.join(' -> ')}</div>
+          <div className='text-black'><strong>Cost: </strong>{result.cost}</div>
         </div>
       )}
     </div>
