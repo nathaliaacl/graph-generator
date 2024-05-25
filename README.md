@@ -47,5 +47,3 @@ This is a web application for manipulating graphs, built with React, Flask, and 
 Contributions are welcome! Feel free to open issues or submit pull requests.
 
 ---
-
-Feel free to customize this README to better fit your project!
