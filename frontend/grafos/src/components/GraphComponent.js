@@ -11,6 +11,8 @@ import RemoveLastVertexButton from './button/RemoveLastVertexButton';
 
 import { IoIosAdd } from "react-icons/io";
 import AddBatchComponent from './AddBatchComponent';
+import EulerianCheck from './EulerianCheck';
+import SemiEulerianCheck from './SemiEulerianCheck';
 
 function GraphComponent() {
   const [elements, setElements] = useState([]);
@@ -244,7 +246,7 @@ const removeLastVertex = () => {
         className="p-1 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150 ease-in-out"
     />
     <button onClick={addVertex} className="bg-green-500 hover:bg-green-700 text-white font-bold text-base py-1 px-2 rounded my-2 mr-2 flex items-center gap-1">
-        <IoIosAdd size={20}/>
+        <IoIosAdd size={25}/>
         Add Vertex
     </button>
     <input
@@ -269,7 +271,7 @@ const removeLastVertex = () => {
         className="p-1 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150 ease-in-out"
     />
     <button onClick={addEdge} className="bg-green-500 hover:bg-green-700 text-white font-bold text-base py-1 px-2 rounded my-2 mr-2 flex items-center gap-1">
-        <IoIosAdd size={20}/>
+        <IoIosAdd size={25}/>
         Add Edge
     </button>
 </div>
@@ -342,6 +344,8 @@ const removeLastVertex = () => {
         <AdjacencyList/>
         <CheckAdjacency/>
         <ShortestPath/> 
+        <EulerianCheck/>
+        <SemiEulerianCheck/>
 
     </div>
   );

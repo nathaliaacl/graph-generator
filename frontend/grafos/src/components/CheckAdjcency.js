@@ -50,9 +50,15 @@ function CheckAdjacency() {
             </button> 
             </div>
             
-            <div className={`ml-4 flex items-center text-md ${isAdjacent === null ? 'text-red-600' : isAdjacent ? 'text-green-500' : 'text-red-600'}`}>
-            {result}
-            </div>
+            
+                <div className={`ml-4 flex items-center text-md ${isAdjacent === null ? 'text-red-600' : isAdjacent ? 'text-green-500' : 'text-red-600'}`}>
+                <strong>
+                   {result} 
+                </strong>
+                
+                </div>   
+            
+            
         </div>
     );
 }

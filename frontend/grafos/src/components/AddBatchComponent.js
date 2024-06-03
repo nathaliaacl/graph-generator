@@ -33,8 +33,8 @@ function AddBatchComponent({ fetchGraph, updateGraphMetrics }) {
         type="text"
         value={batchInput}
         onChange={(e) => setBatchInput(e.target.value)}
-        placeholder="Enter batch data"
-        className="p-1 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150 ease-in-out"
+        placeholder="Enter batch data..."
+        className="p-1 border w-64 border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-150 ease-in-out"
       />
       <button onClick={addBatch} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
         Add Batch
